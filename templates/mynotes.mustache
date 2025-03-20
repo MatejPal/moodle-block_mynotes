@@ -1,0 +1,47 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template block_mynotes/mynotes
+
+    Template for adding a note and displaying them.
+
+    Example context (json):
+    {
+    }
+}}
+<div class="w-25 py-1">
+    <input type="text"
+           id="noteimput-{{uniqid}}"
+           name="note"
+           data-region="block_mynotes/addnote-input"
+           class="form-control"
+           placeholder="{{#str}}addnote, block_mynotes{{/str}}"
+           aria-label="{{#str}}addnote, block_mynotes{{/str}}"
+    />
+</div>
+<div>
+    <button data-action="mynotes/helloworld-update_button">Click me</button>
+</div>
+
+<!--<div class="greetuser py-2" data-region="block_mynotes/helloworld-usergreeting">-->
+<!--</div>-->
+
+{{#js}}
+    require(['block_mynotes/mynotes'], function(module) {
+        module.init({{userid}});
+    });
+{{/js}}

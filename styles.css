@@ -1,0 +1,38 @@
+.notes-list {
+    margin-top: 15px;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+}
+.note-item {
+    background: #f8f9fa;
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+.note-footer {
+    display: flex;
+    justify-content: space-between; /* Pushes children to the left and right */
+    align-items: center;
+    margin-top: 5px;
+}
+.pagination-controls {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+.pagination-controls button {
+    padding: 5px 10px;
+    font-size: 0.9em;
+}
+.note-actions a {
+    margin-left: 10px;
+    cursor: pointer;
+    text-decoration: none;
+}
+.edit-container {
+    margin-bottom: 5px;
+}
+.edit-container textarea {
+    width: 100%;
+    box-sizing: border-box;
+}
