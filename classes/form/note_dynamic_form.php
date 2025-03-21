@@ -27,27 +27,56 @@ use moodle_url;
 
 class note_dynamic_form extends \core_form\dynamic_form {
 
+    /**
+     * Returns context where this form is used
+     *
+     * @return context
+     */
     protected function get_context_for_dynamic_submission(): context {
         return \context_system::instance();
     }
 
+    /**
+     * Checks if current user has access to this form, otherwise throws exception
+     *
+     * @return void
+     */
     protected function check_access_for_dynamic_submission(): void {
         require_capability('block/mynotes:postnotes', \context_system::instance());
     }
 
+    /**
+     * Process the form submission, used if form was submitted via AJAX
+     *
+     * @return mixed
+     */
     public function process_dynamic_submission() {
         return $this->get_data();
     }
 
+    /**
+     * Load in existing data as form defaults
+     *
+     * @return void
+     */
     public function set_data_for_dynamic_submission(): void {
-        $this->get_data([
-        ]);
+        $this->get_data();
     }
 
+    /**
+     * Returns url to set in $PAGE->set_url() when form is being rendered or submitted via AJAX
+     *
+     * @return moodle_url
+     */
     protected function get_page_url_for_dynamic_submission(): moodle_url {
-        return new \moodle_url('/block/mynotes/note.php');
+        return new \moodle_url('/block/mynotes/block_mynotes.php');
     }
 
+    /**
+     * Definition function for the dynamic form
+     *
+     * @return void
+     */
     protected function definition() {
         global $USER;
 
@@ -58,8 +87,6 @@ class note_dynamic_form extends \core_form\dynamic_form {
 
         $noteform->addElement('hidden', 'userid', $USER->id);
         $noteform->setType('userid', PARAM_INT);
-
-        // Add editing form functionality.
 
         $submitlabel = get_string('submit');
 
