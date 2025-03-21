@@ -37,6 +37,9 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->libdir . '/externallib.php');
 
+/**
+ * External API class for adding a new note in the My Notes plugin.
+ */
 class add_note extends external_api {
 
     /**
@@ -59,7 +62,7 @@ class add_note extends external_api {
      * @return array Array containing warnings and record ID (if successful).
      */
     public static function execute ($userid, $note) {
-        global $DB, $USER;
+        global $DB;
 
         $warnings = [];
 
@@ -73,7 +76,7 @@ class add_note extends external_api {
 
         require_capability('block/mynotes:postnotes', $context);
 
-        $notecontent = trim($params['note']);
+        $notecontent = strip_tags(trim($params['note']));
         if (empty($notecontent)) {
             $warnings[] = [
                     'item' => 'note',

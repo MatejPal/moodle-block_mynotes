@@ -35,6 +35,9 @@ use external_function_parameters;
 use external_single_structure;
 use external_value;
 
+/**
+ * External API class for deleting a note in the My Notes plugin.
+ */
 class delete_note extends external_api {
 
     /**

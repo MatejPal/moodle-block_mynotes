@@ -36,8 +36,16 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->libdir . '/externallib.php');
 
+/**
+ * External API class for editing a note in the My Notes plugin.
+ */
 class edit_note extends external_api {
 
+    /**
+     * Define input parameters.
+     *
+     * @return external_function_parameters
+     */
     public static function execute_parameters(): external_function_parameters {
         return new external_function_parameters([
                 'noteid' => new external_value(PARAM_INT, 'ID of the note to edit'),
@@ -45,6 +53,13 @@ class edit_note extends external_api {
         ]);
     }
 
+    /**
+     * Process the request and edit the note to the database.
+     *
+     * @param int $noteid The note ID.
+     * @param string $note The note content.
+     * @return array Array containing warnings and record ID (if successful).
+     */
     public static function execute($noteid, $note) {
         global $DB, $USER;
 
@@ -72,6 +87,11 @@ class edit_note extends external_api {
         return ['status' => 'success'];
     }
 
+    /**
+     * Define return structure.
+     *
+     * @return external_single_structure
+     */
     public static function execute_returns(): external_single_structure {
         return new external_single_structure([
                 'status' => new external_value(PARAM_TEXT, 'Status of the update'),

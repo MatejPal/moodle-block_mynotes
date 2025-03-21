@@ -13,6 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+
 use block_mynotes\form\note_dynamic_form;
 
 /**
@@ -75,7 +76,6 @@ class block_mynotes extends block_base {
             '',
             [
                 'data-region' => 'notes-container',
-                //'data-block-instance-id' => $instanceid,
                 'class' => 'notes-list'
             ]
         );

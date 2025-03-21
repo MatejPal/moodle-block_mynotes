@@ -14,7 +14,17 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * TODO describe module repository
+ * Repository module for block_mynotes.
+ *
+ * This module encapsulates all AJAX calls related to the My Notes plugin using Moodle's core/ajax.
+ * It provides functions to:
+ * - Retrieve user data,
+ * - Add new notes,
+ * - Fetch paginated notes,
+ * - Delete a note, and
+ * - Edit an existing note.
+ *
+ * Each function returns a Promise that resolves to the data returned by the corresponding external web service.
  *
  * @module     block_mynotes/local/mynotes/repository
  * @copyright  2025 Matej Pal <matej.pal@agiledrop.com>

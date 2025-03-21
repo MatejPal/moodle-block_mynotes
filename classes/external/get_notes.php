@@ -28,14 +28,21 @@ namespace block_mynotes\external;
 defined('MOODLE_INTERNAL') || die();
 
 use context_system;
+use core_external\restricted_context_exception;
+use dml_exception;
 use external_api;
 use external_function_parameters;
 use external_multiple_structure;
 use external_single_structure;
 use external_value;
+use invalid_parameter_exception;
+use required_capability_exception;
 
 require_once($CFG->libdir . '/externallib.php');
 
+/**
+ * External API class for getting notes in the My Notes plugin.
+ */
 class get_notes extends external_api {
 
     /**
@@ -53,9 +60,11 @@ class get_notes extends external_api {
     /**
      * Fetch user notes.
      *
+     * @param int $limit
+     * @param int $offset
      * @return array Array of notes.
      */
-    public static function execute($limit = 5, $offset = 0) {
+    public static function execute($limit = 5, $offset = 0): array {
         global $DB, $USER;
         $context = context_system::instance();
         self::validate_context($context);
