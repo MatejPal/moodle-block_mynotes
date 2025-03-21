@@ -87,7 +87,7 @@ class delete_note extends external_api {
      */
     public static function execute_returns() {
         return new external_single_structure([
-                'status' => new external_value(PARAM_TEXT, 'Result status')
+                'status' => new external_value(PARAM_TEXT, 'Result status'),
         ]);
     }
 

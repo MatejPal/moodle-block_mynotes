@@ -61,14 +61,14 @@ class add_note extends external_api {
      * @param string $note The note content.
      * @return array Array containing warnings and record ID (if successful).
      */
-    public static function execute ($userid, $note) {
+    public static function execute($userid, $note) {
         global $DB;
 
         $warnings = [];
 
         $params = self::validate_parameters(self::execute_parameters(), [
                 'userid' => $userid,
-                'note' => $note
+                'note' => $note,
         ]);
 
         $context = context_system::instance();
@@ -82,11 +82,11 @@ class add_note extends external_api {
                     'item' => 'note',
                     'itemid' => $userid,
                     'warningcode' => 'emptynote',
-                    'message' => get_string('emptynote', 'block_mynotes')
+                    'message' => get_string('emptynote', 'block_mynotes'),
             ];
             return [
                     'recordid' => 0,
-                    'warnings' => $warnings
+                    'warnings' => $warnings,
             ];
         }
 

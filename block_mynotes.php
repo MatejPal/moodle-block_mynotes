@@ -33,7 +33,12 @@ class block_mynotes extends block_base {
         $this->title = get_string('pluginname', 'block_mynotes');
     }
 
-    public function _self_test() {
+    /**
+     * Self test.
+     *
+     * @return true
+     */
+    public function _self_test(): bool {
         return true;
     }
 
@@ -43,7 +48,6 @@ class block_mynotes extends block_base {
      * @return stdClass The block contents.
      */
     public function get_content() {
-        global $PAGE;
 
         if ($this->content !== null) {
             return $this->content;
@@ -76,11 +80,11 @@ class block_mynotes extends block_base {
             '',
             [
                 'data-region' => 'notes-container',
-                'class' => 'notes-list'
+                'class' => 'notes-list',
             ]
         );
 
-        $PAGE->requires->js_call_amd(
+        $this->page->requires->js_call_amd(
             'block_mynotes/mynotes',
             'addNote',
             [
@@ -123,8 +127,8 @@ class block_mynotes extends block_base {
      * @return string[] Array of pages and permissions.
      */
     public function applicable_formats() {
-        return array(
+        return [
             'my' => true,
-        );
+        ];
     }
 }

@@ -17,11 +17,10 @@
 namespace block_mynotes;
 
 use block_mynotes;
+use dml_exception;
 use external_api;
 use invalid_response_exception;
 use stdClass;
-
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * Unit tests for the block_mynotes plugin
@@ -52,6 +51,8 @@ final class external_test extends \advanced_testcase {
         self::setUser($this->user);
 
         $this->anotheruser = self::getDataGenerator()->create_user();
+
+        parent::setUp();
     }
 
     /**
@@ -60,7 +61,7 @@ final class external_test extends \advanced_testcase {
      * @return array The array of notes.
      * @throws invalid_response_exception
      */
-    protected function getUserNotes($limit = 5, $offset = 0): array {
+    protected function get_user_notes($limit = 5, $offset = 0): array {
         $raw = block_mynotes\external\get_notes::execute($limit, $offset);
         $result = external_api::clean_returnvalue(
                 block_mynotes\external\get_notes::execute_returns(),
@@ -78,11 +79,14 @@ final class external_test extends \advanced_testcase {
      * - The warnings array is empty.
      * - A subsequent call to get_notes returns one note.
      * - The note record in the database contains the expected user id and content.
+     *
+     * @covers \block_mynotes\external\add_note::execute
+     * @return void
      */
-    public function test_add_note() {
+    public function test_add_note(): void {
         global $DB;
 
-        $notes = $this->getUserNotes();
+        $notes = $this->get_user_notes();
         $this->assertEmpty($notes);
 
         $notecontent = 'This is a test note';
@@ -94,7 +98,7 @@ final class external_test extends \advanced_testcase {
         $this->assertGreaterThan(0, $result['recordid']);
         $this->assertEmpty($result['warnings'], 'Warnings array should be empty on successful add.');
 
-        $notes = $this->getUserNotes();
+        $notes = $this->get_user_notes();
 
         $this->assertCount(1, $notes, 'There should be one note after adding.');
 
@@ -105,8 +109,10 @@ final class external_test extends \advanced_testcase {
 
     /**
      * Test editing an existing note.
+     * @covers \block_mynotes\external\edit_note::execute
+     * @return void
      */
-    public function test_edit_note() {
+    public function test_edit_note(): void {
         global $DB;
 
         $notecontent = 'Original note';
@@ -126,7 +132,7 @@ final class external_test extends \advanced_testcase {
         );
         $this->assertEquals('success', $result['status'], 'The edit should return a success status.');
 
-        $notes = $this->getUserNotes();
+        $notes = $this->get_user_notes();
         $this->assertCount(1, $notes, 'There should be one note after editing.');
 
         $note = $DB->get_record('block_mynotes', ['id' => $recordid]);
@@ -136,8 +142,11 @@ final class external_test extends \advanced_testcase {
 
     /**
      * Test deleting a note.
+     *
+     * @covers \block_mynotes\external\delete_note::execute
+     * @return void
      */
-    public function test_delete_note() {
+    public function test_delete_note(): void {
 
         $notecontent = 'Note to delete';
         $raw = block_mynotes\external\add_note::execute($this->user->id, $notecontent);
@@ -147,7 +156,7 @@ final class external_test extends \advanced_testcase {
         );
         $recordid = $result['recordid'];
 
-        $notes = $this->getUserNotes();
+        $notes = $this->get_user_notes();
         $this->assertCount(1, $notes, 'There should be one note before deletion.');
 
         $raw = block_mynotes\external\delete_note::execute($recordid);
@@ -158,14 +167,16 @@ final class external_test extends \advanced_testcase {
 
         $this->assertEquals('success', $result['status'], 'The note should be deleted and status success returned.');
 
-        $notes = $this->getUserNotes();
+        $notes = $this->get_user_notes();
         $this->assertCount(0, $notes, 'There should be no notes after deleting.');
     }
 
     /**
      * Test that editing a note by another user is not allowed.
+     * @covers \block_mynotes\external\edit_note::execute
+     * @return void
      */
-    public function test_edit_note_by_another_user() {
+    public function test_edit_note_by_another_user(): void {
         $notecontent = 'User note';
         $raw = block_mynotes\external\add_note::execute($this->user->id, $notecontent);
         $result = external_api::clean_returnvalue(
@@ -181,8 +192,11 @@ final class external_test extends \advanced_testcase {
 
     /**
      * Test that deleting a note by another user is not allowed.
+     *
+     * @covers \block_mynotes\external\delete_note::execute
+     * @return void
      */
-    public function test_delete_note_by_another_user() {
+    public function test_delete_note_by_another_user(): void {
         $notecontent = 'This is not yours!';
         $raw = block_mynotes\external\add_note::execute($this->user->id, $notecontent);
         $result = external_api::clean_returnvalue(
@@ -198,8 +212,11 @@ final class external_test extends \advanced_testcase {
 
     /**
      * Test that adding an empty note is not allowed.
+     *
+     * @covers \block_mynotes\external\add_note::execute
+     * @return void
      */
-    public function test_add_empty_note() {
+    public function test_add_empty_note(): void {
         $notecontent = ' ';
         $raw = block_mynotes\external\add_note::execute($this->user->id, $notecontent);
         $result = external_api::clean_returnvalue(
@@ -212,18 +229,21 @@ final class external_test extends \advanced_testcase {
 
     /**
      * Test pagination.
+     *
+     * @covers \block_mynotes\external\add_note::execute
+     * @return void
      */
-    public function test_get_notes_pagination() {
+    public function test_get_notes_pagination(): void {
         // Create 7 notes.
         for ($i = 1; $i <= 7; $i++) {
             block_mynotes\external\add_note::execute($this->user->id, 'Note ' . $i);
         }
         // Get first page (limit 5, offset 0).
-        $notes = $this->getUserNotes();
+        $notes = $this->get_user_notes();
         $this->assertCount(5, $notes, 'There should be 5 notes on the first page.');
 
         // Get second page (limit 5, offset 5).
-        $notes = $this->getUserNotes(5, 5);
+        $notes = $this->get_user_notes(5, 5);
         $this->assertCount(2, $notes, 'There should be 2 notes on the second page.');
     }
 }

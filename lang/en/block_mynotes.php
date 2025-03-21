@@ -25,9 +25,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['pluginname'] = 'My Notes';
-$string['mynotes:addmyinstance'] = 'Add a new My Notes block';
 $string['addnote'] = 'Note';
-$string['yournote'] = 'Your note';
 $string['emptynote'] = 'The note cannot be empty.';
+$string['mynotes:addmyinstance'] = 'Add a new My Notes block';
+$string['pluginname'] = 'My Notes';
 $string['privacy:metadata'] = 'The My notes block does not store any user data.';
+$string['yournote'] = 'Your note';

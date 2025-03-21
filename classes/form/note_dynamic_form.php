@@ -15,6 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Class note_dynamic_form
+ *
  * @package    block_mynotes
  * @copyright  2025 Matej Pal <matej.pal@agiledrop.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -25,6 +27,9 @@ namespace block_mynotes\form;
 use context;
 use moodle_url;
 
+/**
+ * Class note_dynamic_form
+ */
 class note_dynamic_form extends \core_form\dynamic_form {
 
     /**

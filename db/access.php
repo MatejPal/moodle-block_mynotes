@@ -24,29 +24,29 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$capabilities = array(
-    'block/mynotes:myaddinstance' => array(
+$capabilities = [
+    'block/mynotes:myaddinstance' => [
         'captype' => 'write',
         'contextlevel' => CONTEXT_SYSTEM,
-        'archetypes' => array(
-                'user' => CAP_ALLOW
-        ),
-        'clonepermissionsfrom' => 'moodle/my:manageblocks'
-    ),
-    'block/mynotes:postnotes' => array(
+        'archetypes' => [
+                'user' => CAP_ALLOW,
+        'clonepermissionsfrom' => 'moodle/my:manageblocks',
+        ],
+    ],
+    'block/mynotes:postnotes' => [
         'captype' => 'write',
         'contextlevel' => CONTEXT_SYSTEM,
-        'archetypes' => array(
+        'archetypes' => [
             'editingteacher' => CAP_ALLOW,
             'manager' => CAP_ALLOW,
             'user' => CAP_ALLOW,
-        ),
-    ),
-    'block/mynotes:viewnotes' => array(
+            ],
+    ],
+    'block/mynotes:viewnotes' => [
         'captype' => 'read',
-        'contextlevel' => CONTEXT_SYSTEM, // Recommended to use system if you're checking in context_system
-        'archetypes' => array(
+        'contextlevel' => CONTEXT_SYSTEM,
+        'archetypes' => [
                 'user' => CAP_ALLOW,
-        ),
-    ),
-);
+            ],
+    ],
+];

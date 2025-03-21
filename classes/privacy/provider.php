@@ -15,9 +15,9 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Privacy Subsystem implementation for block_faq_list.
+ * Privacy Subsystem implementation for block_mynotes.
  *
- * @package     block_faq_list
+ * @package     block_mynotes
  *
  * @copyright   Matej Pal, 2025
  * @author      2025 Matej Pal <matej.pal@agiledrop.com>
