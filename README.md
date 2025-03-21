@@ -1,8 +1,30 @@
 # My Notes #
 
-TODO Describe the plugin shortly here.
+My Notes is a Moodle block plugin that allows users to quickly add, edit,
+and delete personal notes directly from their dashboard.
+With a user-friendly interface and seamless AJAX-powered interactions,
+My Notes is a simple yet effective tool to manage reminders, tasks,
+or any personal information.
 
-TODO Provide more detailed description here.
+My Notes integrates tightly with Moodle’s external API and dynamic form framework.
+When a user submits a new note, it is stored securely in the Moodle database,
+and the user interface updates dynamically to reflect the change.
+Similarly, editing or deleting a note is handled via AJAX,
+ensuring a smooth and responsive user experience.
+
+Key aspects include:
+
+- AJAX-Driven Operations: Uses Moodle’s core AJAX system for adding, editing, and deleting notes,
+providing immediate feedback and eliminating full page reloads.
+- Dynamic Forms: Built on Moodle's dynamic form API,
+the plugin maintains a consistent look and feel with the rest of Moodle.
+- Pagination: Automatically paginates notes so users can easily navigate through their list, even if it grows large.
+- Security & Permissions: Enforces capability checks
+(such as block/mynotes:postnotes and block/mynotes:viewnotes)
+to ensure that only authorized users can make changes.
+- Unit Testing: Includes robust PHPUnit tests that cover key functionality,
+ensuring the plugin remains reliable as it evolves.
+
 
 ## Installing via uploaded ZIP file ##
 
