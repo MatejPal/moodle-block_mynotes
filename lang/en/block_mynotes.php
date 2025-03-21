@@ -30,3 +30,4 @@ $string['mynotes:addmyinstance'] = 'Add a new My Notes block';
 $string['addnote'] = 'Note';
 $string['yournote'] = 'Your note';
 $string['emptynote'] = 'The note cannot be empty.';
+$string['privacy:metadata'] = 'The My notes block does not store any user data.';
