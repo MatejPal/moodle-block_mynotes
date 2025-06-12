@@ -26,6 +26,6 @@ defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'block_mynotes';
 $plugin->release = '0.1.0';
-$plugin->version = 2025031708;
+$plugin->version = 2025031709;
 $plugin->requires = 2022112800;
 $plugin->maturity = MATURITY_ALPHA;
